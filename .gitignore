@@ -1,19 +1,18 @@
 ### Unity ###
-TheLoot/[Ll]ibrary/
-TheLoot/[Tt]emp/
-TheLoot/[Oo]bj/
-TheLoot/[Bb]uild/
-TheLoot/[Bb]uilds/
-TheLoot/[Ll]og/
-TheLoot/[Ll]ogs/
-TheLoot/Assets/EntityCache/
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]og/
+[Ll]ogs/
 
 # Added to use a Lab folder
-TheLoot/Assets/Lab
-TheLoot/Assets/Lab.meta
+Assets/Lab
+Assets/Lab.meta
 
 # Added to use an Archive folder for the Releases
-TheLoot/Archives/
+Archives/
 
 # Visual Studio cache directory
 .vs/
