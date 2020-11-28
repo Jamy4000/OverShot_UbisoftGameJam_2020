@@ -23,16 +23,18 @@ namespace UbiJam.UI
         private GameManager _gameManager;
         private GameTimer _gameTimer;
 
-        private void Start()
+        private void Awake()
         {
-            _gameTimer = GameTimer.Instance;
-            _gameManager = GameManager.Instance;
-
-            // Update game timer
             _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
             _countdownText.text = "Prepare yourself...";
             OnGameEnded.Listeners += DestroyUI;
             OnGameStarted.Listeners += DisableCountdownText;
+        }
+
+        private void Start()
+        {
+            _gameTimer = GameTimer.Instance;
+            _gameManager = GameManager.Instance;
         }
 
         private void Update()
@@ -44,7 +46,7 @@ namespace UbiJam.UI
             else if (_gameManager.IsRunning)
             {
                 // Update game timer
-                _timerText.text = "Time Remaining: " + _gameTimer.GameTimeSeconds.ToString("N1") + " sec.";
+                _timerText.text = "Time Remaining: " + _gameTimer.RemainingGameTimeSeconds.ToString("N1") + " sec.";
             }
         }
 
