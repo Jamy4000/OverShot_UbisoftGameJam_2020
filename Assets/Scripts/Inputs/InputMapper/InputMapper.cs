@@ -2,7 +2,7 @@
 
 namespace UbiJam.Inputs
 {
-    public abstract class InputMapper
+    public class InputMapper : IEnabler
     {
         public bool IsEnable { get; protected set; }
 
@@ -18,7 +18,16 @@ namespace UbiJam.Inputs
                 Disable();
         }
 
-        public abstract void Enable();
-        public abstract void Disable();
+        public virtual void Enable()
+        {
+            IsEnable = true;
+            InputActionMap.Enable();
+        }
+
+        public virtual void Disable()
+        {
+            IsEnable = false;
+            InputActionMap.Disable();
+        }
     }
 }
