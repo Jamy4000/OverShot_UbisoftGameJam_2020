@@ -11,7 +11,7 @@ namespace UbiJam.Slingshot
 
         private void Start()
         {
-            InputManager.Instance.SlingshotInputs.QuitSlingshotMode.started += QuitSlingshotMode;
+            InputManager.Instance.SlingshotInputs.QuitSlingshotModeAction.started += QuitSlingshotMode;
             OnUserSwitchedController.Listeners += QuitSlingshotCallback;
         }
 

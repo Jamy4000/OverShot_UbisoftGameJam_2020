@@ -8,9 +8,18 @@ namespace UbiJam.Player
         public EPlayerMoveState CurrentPlayerMoveState { get; protected set; } = EPlayerMoveState.None;
 
         protected Rigidbody PlayerRigidbody;
-        protected Vector3 MovementInputValue;
         protected bool IsInteracting;
         protected CharacterSettings CharacterSettings;
+
+        protected Vector3 MovementInputValue
+        {
+            get
+            {
+                return _movementInputValue * GetPlayerSpeed();
+            }
+        }
+
+        private Vector3 _movementInputValue; 
 
         public PlayerMover(Rigidbody rb)
         {
@@ -25,17 +34,14 @@ namespace UbiJam.Player
             Vector2 readValue = isMoving ? obj.ReadValue<Vector2>() : Vector2.zero;
             SetCurrentPlayerMoveState(isMoving);
 
-            MovementInputValue.x = readValue.x;
-            MovementInputValue.z = readValue.y;
-            MovementInputValue *= GetPlayerSpeed();
+            _movementInputValue.x = readValue.x;
+            _movementInputValue.z = readValue.y;
         }
 
         public void UpdateInteractVariables(InputAction.CallbackContext obj)
         {
             IsInteracting = !obj.canceled;
         }
-
-        protected abstract void SetCurrentPlayerMoveState(bool isMoving);
 
         protected float GetPlayerSpeed()
         {
@@ -49,5 +55,7 @@ namespace UbiJam.Player
                     return 0.0f;
             }
         }
+
+        protected abstract void SetCurrentPlayerMoveState(bool isMoving);
     }
 }
