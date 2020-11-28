@@ -6,23 +6,13 @@ namespace UbiJam.Inputs
     {
         public readonly InputAction InteractAction;
         public readonly InputAction MoveAction;
+        public readonly InputAction RunAction;
 
         public CharacterInputMapper(InputActionMap inputActionMap, bool isEnableOnStart) : base(inputActionMap, isEnableOnStart)
         {
             InteractAction = inputActionMap.FindAction("Interact");
             MoveAction = inputActionMap.FindAction("Move");
-        }
-
-        public override void Enable()
-        {
-            IsEnable = true;
-            InputActionMap.Enable();
-        }
-
-        public override void Disable()
-        {
-            IsEnable = false;
-            InputActionMap.Disable();
+            RunAction = inputActionMap.FindAction("Run");
         }
     }
 }
