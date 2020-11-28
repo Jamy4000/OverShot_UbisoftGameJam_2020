@@ -32,6 +32,7 @@ namespace UbiJam.Player
         private void UpdateRunVariable(InputAction.CallbackContext obj)
         {
             _isRunning = !obj.canceled;
+            SetCurrentPlayerMoveState(CurrentPlayerMoveState != EPlayerMoveState.Idle);
         }
 
         protected override void SetCurrentPlayerMoveState(bool isMoving)

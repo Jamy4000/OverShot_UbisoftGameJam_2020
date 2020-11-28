@@ -6,13 +6,15 @@ namespace UbiJam.Inputs
     {
         public readonly InputAction FireAction;
         public readonly InputAction MoveAction;
-        public readonly InputAction QuitSlingshotMode;
+        public readonly InputAction QuitSlingshotModeAction;
+        public readonly InputAction OnPauseAction;
 
         public SlingshotInputMapper(InputActionMap inputActionMap, bool isEnableOnStart) : base(inputActionMap, isEnableOnStart)
         {
             FireAction = inputActionMap.FindAction("Fire");
             MoveAction = inputActionMap.FindAction("Move");
-            QuitSlingshotMode = inputActionMap.FindAction("Quit");
+            QuitSlingshotModeAction = inputActionMap.FindAction("Quit");
+            OnPauseAction = inputActionMap.FindAction("Pause");
         }
     }
 }

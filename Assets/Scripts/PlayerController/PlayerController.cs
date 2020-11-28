@@ -1,4 +1,6 @@
-﻿using UbiJam.Events;
+﻿using System;
+using UbiJam.Events;
+using UbiJam.Gameplay;
 using UbiJam.Inputs;
 using UbiJam.Utils;
 using UnityEngine;
@@ -14,7 +16,6 @@ namespace UbiJam.Player
         private SlingshotMover _slingshotMover;
         private CharacterMover _characterMover;
 
-        // TODO Change that when timer is in
         private bool _canInteract = true;
 
         protected void Start()
@@ -34,7 +35,7 @@ namespace UbiJam.Player
 
         private void Update()
         {
-            if (!_canInteract)
+            if (!_canInteract || !GameManager.Instance.IsRunning)
                 return;
 
             _currentMover.UpdatePosition();
