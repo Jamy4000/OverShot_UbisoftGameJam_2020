@@ -14,7 +14,8 @@ namespace UbiJam.Player
         private SlingshotMover _slingshotMover;
         private CharacterMover _characterMover;
 
-        private bool _isInSlingshotMode = false;
+        // TODO Change that when timer is in
+        private bool _canInteract = true;
 
         protected void Start()
         {
@@ -26,29 +27,42 @@ namespace UbiJam.Player
             _slingshotMover = new SlingshotMover(inputManager.SlingshotInputs, rb);
 
             _currentMover = _characterMover;
-            _isInSlingshotMode = false;
-            OnUserSwitchedController.Listeners += SwitchController;
+            OnUserSwitchedController.Listeners += BlockUserInteractions;
+            OnCharacterReady.Listeners += ActivateCharacterMovements;
+            OnSlingshotReady.Listeners += ActivateSlingshotMovements;
         }
 
         private void Update()
         {
+            if (!_canInteract)
+                return;
+
             _currentMover.UpdatePosition();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            OnUserSwitchedController.Listeners -= SwitchController;
+            OnUserSwitchedController.Listeners -= BlockUserInteractions;
+            OnCharacterReady.Listeners -= ActivateCharacterMovements;
+            OnSlingshotReady.Listeners -= ActivateSlingshotMovements;
         }
 
-        private void SwitchController(OnUserSwitchedController info)
+        private void BlockUserInteractions(OnUserSwitchedController _)
         {
-            if (_isInSlingshotMode)
-                _currentMover = _characterMover;
-            else
-                _currentMover = _slingshotMover;
+            _canInteract = false;
+        }
 
-            _isInSlingshotMode = !_isInSlingshotMode;
+        private void ActivateCharacterMovements(OnCharacterReady _)
+        {
+            _currentMover = _characterMover;
+            _canInteract = true;
+        }
+
+        private void ActivateSlingshotMovements(OnSlingshotReady _)
+        {
+            _currentMover = _slingshotMover;
+            _canInteract = true;
         }
     }
 }

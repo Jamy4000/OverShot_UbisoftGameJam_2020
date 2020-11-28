@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UbiJam.Utils;
+using UbiJam.Events;
 using UnityEngine.InputSystem;
 
 namespace UbiJam.Inputs
@@ -27,20 +28,30 @@ namespace UbiJam.Inputs
             //Setting up character mapper
             _playerInput.SwitchCurrentActionMap(_characterActionMapName);
             CharacterInputs = new CharacterInputMapper(_playerInput.currentActionMap, true);
+
+            OnCharacterReady.Listeners += ToggleCharacterMap;
+            OnSlingshotReady.Listeners += ToggleSlingshotMap;
         }
 
-        public void ToggleInputMap()
+        protected override void OnDestroy()
         {
-            if (CharacterInputs.IsEnable)
-            {
-                CharacterInputs.Disable();
-                SlingshotInputs.Enable();
-            }
-            else
-            {
-                CharacterInputs.Enable();
-                SlingshotInputs.Disable();
-            }
+            base.OnDestroy();
+            OnCharacterReady.Listeners -= ToggleCharacterMap;
+            OnSlingshotReady.Listeners -= ToggleSlingshotMap;
+        }
+
+        public void ToggleCharacterMap(OnCharacterReady _)
+        {
+            CharacterInputs.Enable();
+            SlingshotInputs.Disable();
+            _playerInput.SwitchCurrentActionMap(_characterActionMapName);
+        }
+
+        public void ToggleSlingshotMap(OnSlingshotReady _)
+        {
+            CharacterInputs.Disable();
+            SlingshotInputs.Enable();
+            _playerInput.SwitchCurrentActionMap(_slingshotActionMapName);
         }
     }
 }
