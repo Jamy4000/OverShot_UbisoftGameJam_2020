@@ -11,5 +11,13 @@ namespace UbiJam
         [SerializeField]
         private float _cameraSwitchSpeed = 5.0f;
         public float CameraSwitchFrameCount { get { return 100 * _cameraSwitchSpeed; } }
+
+        [SerializeField]
+        private AnimationCurve _slingshotWalkBackwardCurve = new AnimationCurve();
+        public AnimationCurve SlingshotWalkBackwardCurve { get { return _slingshotWalkBackwardCurve; } }
+
+        [SerializeField]
+        private AnimationCurve _slingshotWalkForwardCurve = new AnimationCurve();
+        public AnimationCurve SlingshotWalkForwardCurve { get { return _slingshotWalkForwardCurve; } }
     }
 }

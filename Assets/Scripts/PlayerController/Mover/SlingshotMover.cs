@@ -5,6 +5,8 @@ namespace UbiJam.Player
 {
     public class SlingshotMover : PlayerMover, IPositionMover
     {
+        private Vector2 _previousInput;
+
         public SlingshotMover(SlingshotInputMapper actionMapper, Rigidbody rb) : base(rb)
         {
             actionMapper.MoveAction.performed += UpdateMoveVariables;
@@ -14,6 +16,15 @@ namespace UbiJam.Player
 
         public void UpdatePosition()
         {
+            if (!IsInteracting)
+            {
+                if (MovementInputValue == Vector3.zero)
+                    return;
+
+                // If user go backward / to the side, use backward curve to go slower and slower
+                // If user go forward / toward the center, use forward curve to go faster
+                _previousInput = MovementInputValue;
+            }
         }
 
         protected override void SetCurrentPlayerMoveState(bool isMoving)
