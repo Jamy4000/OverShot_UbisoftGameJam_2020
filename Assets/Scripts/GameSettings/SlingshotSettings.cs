@@ -32,5 +32,9 @@ namespace UbiJam
         [SerializeField]
         private float _minForwardDistance = 0.2f;
         public float MinForwardDistance { get { return _minForwardDistance; } }
+
+        [SerializeField]
+        private float _throwForce = 5.0f;
+        public float ThrowForce { get { return _throwForce; } }
     }
 }

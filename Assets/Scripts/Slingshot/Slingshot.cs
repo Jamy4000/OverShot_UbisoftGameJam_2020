@@ -11,17 +11,32 @@ namespace UbiJam.Slingshot
     public class Slingshot : MonoSingleton<Slingshot>
 	{
         [SerializeField]
-        private Rigidbody _attachPointRb;
+        private Transform _attachPoint;
+        [SerializeField]
+        private Transform _throwingPoint;
         [SerializeField]
         private GrabbablePool _slingshotPool;
+        [SerializeField]
+        private Vector3 _forwardOffsetAttachPoint = new Vector3(0.0f, 0.0f, 0.2f);
 
         public GameObject ObjectInSlingshot { get; private set; }
+        private Transform _playerCamera;
+        private bool _isActive;
 
-		protected override void Awake()
+        protected override void Awake()
         {
             base.Awake();
             OnSlingshotReady.Listeners += ActivateSlingshot;
             OnCharacterReady.Listeners += DeactivateSlingshot;
+            _playerCamera = Camera.main.transform;
+        }
+
+        private void Update()
+        {
+            if (_isActive)
+            {
+                _attachPoint.position = _playerCamera.position + _forwardOffsetAttachPoint;
+            }
         }
 
         private void Start()
@@ -45,26 +60,41 @@ namespace UbiJam.Slingshot
                 {
                     ObjectInSlingshot = _slingshotPool.GrabbableObjectReferences[i].SceneGO;
                     ObjectInSlingshot.SetActive(true);
+                    _isActive = true;
                 }
             }
         }
 
         private void DeactivateSlingshot(OnCharacterReady info)
         {
+            _isActive = false;
             ObjectInSlingshot.SetActive(false);
         }
 
         private void RemoveGrabbable(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
+            _isActive = false;
+            //Do anim for _attachPoint
             ObjectInSlingshot.SetActive(false);
         }
 
         private void ReleaseSlingshot(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
             Rigidbody rigidbodyInSlingshot = ObjectInSlingshot.GetComponent<Rigidbody>();
-            Vector3 throwForce = SlingshotCurveCalculator.GetForce();
-            _attachPointRb.AddForce(throwForce, ForceMode.Acceleration);
-            rigidbodyInSlingshot.AddForce(throwForce, ForceMode.Acceleration);
+            rigidbodyInSlingshot.isKinematic = false;
+            rigidbodyInSlingshot.AddForce(GetThrowForce(), ForceMode.Impulse);
+
+            //Do anim for _attachPoint
         }
-	}
+
+        private Vector3 GetThrowForce()
+        {
+            SlingshotSettings slingshotSettings = GameSettings.Instance.SlingshotSettings;
+            float distanceFromThrowingPoint = Vector3.Distance(_throwingPoint.position, _playerCamera.position);
+            distanceFromThrowingPoint /= slingshotSettings.MaxBackwardDistance;
+            Vector3 direction = _throwingPoint.position - _attachPoint.position;
+            direction += Physics.gravity * (1-distanceFromThrowingPoint);
+            return direction * slingshotSettings.ThrowForce;
+        }
+    }
 }

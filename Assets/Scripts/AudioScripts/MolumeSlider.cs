@@ -10,12 +10,12 @@ public class VolumeSlider : MonoBehaviour
 
     void Start()
     {
-        manager = MusicManager.instance;
+        manager = MusicManager.Instance;
         UpdateSlider();
     }
     public void UpdateVolume()
     {
-        MusicManager.instance.MasterVolume(channel, GetComponent<Slider>().value);
+        manager.MasterVolume(channel, GetComponent<Slider>().value);
     }
     public void UpdateSlider()
     {

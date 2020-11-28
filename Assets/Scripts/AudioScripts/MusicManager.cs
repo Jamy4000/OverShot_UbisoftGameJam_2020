@@ -1,13 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UbiJam.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class MusicManager : MonoBehaviour
+public class MusicManager : MonoSingleton<MusicManager>
 {
     [Range(0,2)]public static float musicVolume = 1f;
     [Range(0,2)]public static float sfxVolume = 1f;
-    public static MusicManager instance = null;
     // public float transitionDuration = 2f;
     // public float uiMusicTransitionDuration = 1f;
     
@@ -27,19 +27,10 @@ public class MusicManager : MonoBehaviour
     //    Transition(intensity);
     // }
     
-    void Awake()
+    protected override void Awake()
     {
-        if (!instance)
-        {
-            DontDestroyOnLoad(this.gameObject);
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-
-        // vol = new float[4];
+        base.Awake();
+        DontDestroyOnLoad(this.gameObject); Destroy(this.gameObject);
     }
 
     void Start()
@@ -98,8 +89,8 @@ public class MusicManager : MonoBehaviour
         return newValue;
     }
 
-    void Update()
-    {
+    //void Update()
+    //{
         // for(int i = 0; i<4; i++)
         // {
         //     if(i == intensity)
@@ -121,5 +112,5 @@ public class MusicManager : MonoBehaviour
         // }
         // mixer.SetFloat("G_MusicVolume", RemapVolumePercent(volG));
         // mixer.SetFloat("UI_MusicVolume", RemapVolumePercent(volUI));
-    }
+    //}
 }
