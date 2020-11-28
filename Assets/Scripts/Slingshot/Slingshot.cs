@@ -4,24 +4,28 @@ using UbiJam.Events;
 using UbiJam.GrabbableObjects;
 using UnityEngine;
 using UbiJam.Player;
-using System;
+using System.Collections;
 
 namespace UbiJam.Slingshot
 {
     public class Slingshot : MonoSingleton<Slingshot>
-	{
+    {
         [SerializeField]
         private Transform _attachPoint;
+        [SerializeField]
+        private StretchToPoint[] _stretchers;
+        [SerializeField]
+        private SlingshotActivationHandler _activationHandler;
         [SerializeField]
         private Transform _throwingPoint;
         [SerializeField]
         private GrabbablePool _slingshotPool;
-        [SerializeField]
-        private Vector3 _forwardOffsetAttachPoint = new Vector3(0.0f, 0.0f, 0.2f);
 
         public GameObject ObjectInSlingshot { get; private set; }
         private Transform _playerCamera;
         private bool _isActive;
+        private Vector3 _attachPointBasePos;
+        SlingshotSettings _slingshotSettings;
 
         protected override void Awake()
         {
@@ -29,18 +33,20 @@ namespace UbiJam.Slingshot
             OnSlingshotReady.Listeners += ActivateSlingshot;
             OnCharacterReady.Listeners += DeactivateSlingshot;
             _playerCamera = Camera.main.transform;
+            _attachPointBasePos = _attachPoint.localPosition;
         }
 
         private void Update()
         {
             if (_isActive)
             {
-                _attachPoint.position = _playerCamera.position + _forwardOffsetAttachPoint;
+                _attachPoint.position = _playerCamera.position + _slingshotSettings.ForwardOffsetAttachPoint;
             }
         }
 
         private void Start()
         {
+            _slingshotSettings = GameSettings.Instance.SlingshotSettings;
             InputManager.Instance.SlingshotInputs.FireAction.started += ReleaseSlingshot;
             InputManager.Instance.SlingshotInputs.QuitSlingshotModeAction.started += RemoveGrabbable;
         }
@@ -74,7 +80,7 @@ namespace UbiJam.Slingshot
         private void RemoveGrabbable(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
             _isActive = false;
-            //Do anim for _attachPoint
+            //TODO Do anim for _attachPoint
             ObjectInSlingshot.SetActive(false);
         }
 
@@ -84,17 +90,36 @@ namespace UbiJam.Slingshot
             rigidbodyInSlingshot.isKinematic = false;
             rigidbodyInSlingshot.AddForce(GetThrowForce(), ForceMode.Impulse);
 
-            //Do anim for _attachPoint
+            foreach (var stretcher in _stretchers)
+            {
+                stretcher.ResetPostion();
+            }
+            
+            _attachPoint.localPosition = _attachPointBasePos;
+            _isActive = false;
+
+
+            StartCoroutine(LeaveSlingshot());
+            //TODO Do anim for _attachPoint
+        }
+
+        private IEnumerator LeaveSlingshot()
+        {
+            _activationHandler.CanLeave = false;
+            yield return new WaitForSeconds(1.0f);
+            ObjectInSlingshot.GetComponent<GrabbableObject>().ResetGrabbable();
+            new OnUserSwitchedController(false);
+            _activationHandler.CanLeave = true;
         }
 
         private Vector3 GetThrowForce()
         {
-            SlingshotSettings slingshotSettings = GameSettings.Instance.SlingshotSettings;
             float distanceFromThrowingPoint = Vector3.Distance(_throwingPoint.position, _playerCamera.position);
-            distanceFromThrowingPoint /= slingshotSettings.MaxBackwardDistance;
+            distanceFromThrowingPoint /= _slingshotSettings.MaxBackwardDistance;
             Vector3 direction = _throwingPoint.position - _attachPoint.position;
-            direction += Physics.gravity * (1-distanceFromThrowingPoint);
-            return direction * slingshotSettings.ThrowForce;
+            direction *= distanceFromThrowingPoint;
+            direction += Physics.gravity * _slingshotSettings.GravityMultiplier * (1 - distanceFromThrowingPoint);
+            return direction * _slingshotSettings.ThrowForce;
         }
     }
 }

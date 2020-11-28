@@ -36,5 +36,13 @@ namespace UbiJam
         [SerializeField]
         private float _throwForce = 5.0f;
         public float ThrowForce { get { return _throwForce; } }
+
+        [SerializeField]
+        private Vector3 _forwardOffsetAttachPoint = new Vector3(0.0f, -1.0f, 1.2f);
+        public Vector3 ForwardOffsetAttachPoint { get { return _forwardOffsetAttachPoint; } }
+
+        [SerializeField]
+        private float _gravityMultiplier = 0.5f;
+        public float GravityMultiplier { get { return _gravityMultiplier; } }
     }
 }

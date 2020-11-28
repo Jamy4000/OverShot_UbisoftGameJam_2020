@@ -39,6 +39,7 @@ namespace UbiJam.Player
             inputManager.SlingshotInputs.OnPauseAction.started += DisableSystem;
             inputManager.CharacterInputs.OnPauseAction.started += DisableSystem;
 
+            inputManager.SlingshotInputs.FireAction.started += ReleaseSlingshot;
             inputManager.CharacterInputs.InteractAction.started += ReleaseOrGrab;
         }
 
@@ -146,6 +147,11 @@ namespace UbiJam.Player
         private void DisableSystem(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
             enabled = false;
+        }
+
+        private void ReleaseSlingshot(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            CurrentlyGrabbedObject = EGrabbableObjects.None;
         }
     }
 }

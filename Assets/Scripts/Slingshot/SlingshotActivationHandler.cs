@@ -10,6 +10,7 @@ namespace UbiJam.Slingshot
     public class SlingshotActivationHandler : MonoBehaviour
     {
         private bool _isInSlingshot;
+        public bool CanLeave = true;
 
         private void Start()
         {
@@ -33,7 +34,8 @@ namespace UbiJam.Slingshot
 
         private void QuitSlingshotMode(InputAction.CallbackContext _)
         {
-            new OnUserSwitchedController(false);
+            if (CanLeave)
+                new OnUserSwitchedController(false);
         }
     }
 }

@@ -11,10 +11,16 @@ namespace UbiJam.Slingshot
         [SerializeField]
         private Transform _targetpoint;
 
+        private Vector3 _basePosition;
+        private Quaternion _baseRotation;
+        private Vector3 _baseScale;
+
         private void Awake()
         {
-            OnCharacterReady.Listeners += DeactivateSystem;
             OnSlingshotReady.Listeners += ActivateSystem;
+            _baseRotation = transform.localRotation;
+            _basePosition = transform.localPosition;
+            _baseScale = transform.localScale;
             this.enabled = false;
         }
 
@@ -27,7 +33,6 @@ namespace UbiJam.Slingshot
 
         private void OnDestroy()
         {
-            OnCharacterReady.Listeners -= DeactivateSystem;
             OnSlingshotReady.Listeners -= ActivateSystem;
         }
 
@@ -36,9 +41,11 @@ namespace UbiJam.Slingshot
             this.enabled = true;
         }
 
-        private void DeactivateSystem(OnCharacterReady info)
+        public void ResetPostion()
         {
-            transform.localScale = Vector3.one;
+            transform.localPosition = _basePosition;
+            transform.localRotation = _baseRotation;
+            transform.localScale = _baseScale;
             this.enabled = false;
         }
     }
