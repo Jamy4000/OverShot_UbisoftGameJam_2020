@@ -61,8 +61,6 @@ namespace UbiJam.Player
         private Vector3 CalculateNewPosition(AnimationCurve curve, float distanceToSling)
         {
             distanceToSling /= _slingshotSettings.MaxBackwardDistance;
-            Debug.Log("distanceToSling " + distanceToSling);
-            Debug.Log(" curve.Evaluate(distanceToSling) " + curve.Evaluate(distanceToSling));
             return PlayerRigidbody.position + Time.deltaTime * MovementInputValue * curve.Evaluate(distanceToSling);
         }
 

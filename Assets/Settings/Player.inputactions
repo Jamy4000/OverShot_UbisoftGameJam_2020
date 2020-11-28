@@ -173,6 +173,17 @@
                 },
                 {
                     "name": "",
+                    "id": "17a42687-987d-43b1-8c46-63e115b2d3b9",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "741f753f-7091-422e-9332-1c0f65463694",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
@@ -831,6 +842,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd89f6ac-12eb-4794-9b02-de313a67c142",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false

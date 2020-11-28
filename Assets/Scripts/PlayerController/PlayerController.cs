@@ -1,5 +1,4 @@
-﻿using System;
-using UbiJam.Events;
+﻿using UbiJam.Events;
 using UbiJam.Gameplay;
 using UbiJam.Inputs;
 using UbiJam.Utils;

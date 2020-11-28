@@ -19,7 +19,11 @@ namespace UbiJam.UI
         /// Simple reference to the time text at the start of the game
         /// </summary>
         [SerializeField] private TMPro.TextMeshProUGUI _timerText;
-        
+        /// <summary>
+        /// Simple reference to the time text at the start of the game
+        /// </summary>
+        [SerializeField] private TMPro.TextMeshProUGUI _gameEndedText;
+
         private GameManager _gameManager;
         private GameTimer _gameTimer;
 
@@ -27,6 +31,7 @@ namespace UbiJam.UI
         {
             _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
             _countdownText.text = "Prepare yourself...";
+            _gameEndedText.enabled = false;
             OnGameEnded.Listeners += DestroyUI;
             OnGameStarted.Listeners += DisableCountdownText;
         }
@@ -78,7 +83,7 @@ namespace UbiJam.UI
         /// </summary>
         private void DestroyUI(OnGameEnded _)
         {
-            Destroy(gameObject);
+            _gameEndedText.enabled = true;
         }
     }
 }
