@@ -7,6 +7,7 @@ public class DynamicSunlight : MonoBehaviour
     public float timeOfDay = 12.0f;
     public float dayDuration = 60.0f;
     public Gradient lightGradient;
+    public AnimationCurve intensityCurve;
 
     private Light light;
 
@@ -25,7 +26,9 @@ public class DynamicSunlight : MonoBehaviour
     {
         //update light rotation
         //update light color
+        light.color = lightGradient.Evaluate(timeOfDay/24);
         //update light intensity
+        light.intensity = intensityCurve.Evaluate(timeOfDay/24);
     }
 
     private void AdvanceDayTime()
