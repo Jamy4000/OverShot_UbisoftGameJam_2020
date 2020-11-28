@@ -46,6 +46,7 @@ namespace UbiJam.Player
             float interpolationRatio;
             float maxFrameCount = _gameSettings.CharacterSettings.CameraSwitchFrameCount;
             float elapsedFrames = 0;
+            float distanceToObjective;
 
             while (true)
             {
@@ -56,10 +57,17 @@ namespace UbiJam.Player
                 _transform.localPosition = Vector3.Lerp(_transform.localPosition, _thirdPersonPosition, interpolationRatio);
                 _transform.localRotation = Quaternion.Lerp(_transform.localRotation, _thirdPersonRotation, interpolationRatio);
 
+                distanceToObjective = Vector3.Distance(_transform.localPosition, _thirdPersonPosition);
                 // reset elapsedFrames to zero after it reached (interpolationFramesCount + 1)
                 elapsedFrames++;
                 if (elapsedFrames >= maxFrameCount)
                     break;
+                else if (distanceToObjective < 2.0f)
+                {
+                    _transform.localPosition = _thirdPersonPosition;
+                    _transform.localRotation = _thirdPersonRotation;
+                    break;
+                }
             }
 
             new OnCharacterReady();
@@ -70,7 +78,8 @@ namespace UbiJam.Player
             float interpolationRatio;
             float maxFrameCount = _gameSettings.SlingshotSettings.CameraSwitchFrameCount;
             float elapsedFrames = 0.0f;
-            
+            float distanceToObjective;
+
             while (true)
             {
                 yield return new WaitForEndOfFrame();
@@ -79,9 +88,17 @@ namespace UbiJam.Player
                 _transform.localPosition = Vector3.Lerp(_transform.localPosition, _slingshotSettings.CameraTargetPosition, interpolationRatio);
                 _transform.localRotation = Quaternion.Lerp(_transform.localRotation, Quaternion.identity, interpolationRatio);
 
+                distanceToObjective = Vector3.Distance(_transform.localPosition, _slingshotSettings.CameraTargetPosition);
+
                 elapsedFrames++;
                 if (elapsedFrames == maxFrameCount)
                     break;
+                else if (distanceToObjective < 0.1f)
+                {
+                    _transform.localPosition = _slingshotSettings.CameraTargetPosition;
+                    _transform.localRotation = Quaternion.identity;
+                    break;
+                }
             }
 
             new OnSlingshotReady();

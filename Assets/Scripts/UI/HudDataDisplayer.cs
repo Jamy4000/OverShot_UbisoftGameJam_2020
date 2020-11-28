@@ -19,20 +19,27 @@ namespace UbiJam.UI
         /// Simple reference to the time text at the start of the game
         /// </summary>
         [SerializeField] private TMPro.TextMeshProUGUI _timerText;
-        
+        /// <summary>
+        /// Simple reference to the time text at the start of the game
+        /// </summary>
+        [SerializeField] private TMPro.TextMeshProUGUI _gameEndedText;
+
         private GameManager _gameManager;
         private GameTimer _gameTimer;
+
+        private void Awake()
+        {
+            _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
+            _countdownText.text = "Prepare yourself...";
+            _gameEndedText.enabled = false;
+            OnGameEnded.Listeners += DestroyUI;
+            OnGameStarted.Listeners += DisableCountdownText;
+        }
 
         private void Start()
         {
             _gameTimer = GameTimer.Instance;
             _gameManager = GameManager.Instance;
-
-            // Update game timer
-            _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
-            _countdownText.text = "Prepare yourself...";
-            OnGameEnded.Listeners += DestroyUI;
-            OnGameStarted.Listeners += DisableCountdownText;
         }
 
         private void Update()
@@ -44,7 +51,7 @@ namespace UbiJam.UI
             else if (_gameManager.IsRunning)
             {
                 // Update game timer
-                _timerText.text = "Time Remaining: " + _gameTimer.GameTimeSeconds.ToString("N1") + " sec.";
+                _timerText.text = "Time Remaining: " + _gameTimer.RemainingGameTimeSeconds.ToString("N1") + " sec.";
             }
         }
 
@@ -76,7 +83,7 @@ namespace UbiJam.UI
         /// </summary>
         private void DestroyUI(OnGameEnded _)
         {
-            Destroy(gameObject);
+            _gameEndedText.enabled = true;
         }
     }
 }

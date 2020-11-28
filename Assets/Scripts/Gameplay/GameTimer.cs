@@ -33,36 +33,36 @@ namespace UbiJam.Gameplay
         /// </summary>
         public float GameTimeSeconds { get { return _gameStopWatch.ElapsedMilliseconds / 1000.0f; } }
 
-        public string GetCountdownText
+        public float RemainingGameTime { get { return _gameSettings.GameTime - _gameStopWatch.ElapsedMilliseconds; } }
+
+        public float RemainingGameTimeSeconds { get { return RemainingGameTime / 1000.0f; } }
+
+        private GameSettings _gameSettings;
+
+        protected override void Awake()
         {
-            get
-            {
-                switch ((int)GameTimeSeconds)
-                {
-                    case 0:
-                    case 1:
-                    case 2:
-                        return _gameManager.IsStarted ? "GO GO GO GO" : "Prepare yourself ...";
-                    case 3:
-                        return "3";
-                    case 4:
-                        return "2";
-                    case 5:
-                        return "1";
-                    default:
-                        return "GO GO GO GO";
-                }
-            }
+            base.Awake();
+            OnGameEnded.Listeners += ResetTimerOnGameEnd;
         }
 
         private void Start()
         {
             _gameManager = GameManager.Instance;
-            OnGameEnded.Listeners += ResetTimerOnGameEnd;
+            _gameSettings = GameSettings.Instance;
+
             InputManager.Instance.SlingshotInputs.OnPauseAction.started += OnPauseInput;
             InputManager.Instance.CharacterInputs.OnPauseAction.started += OnPauseInput;
 
-            StartCoroutine(StartCountdown());
+            if (_gameSettings.UseCountdown)
+                StartCoroutine(StartCountdown());
+            else
+                new OnGameStarted();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            OnGameEnded.Listeners -= ResetTimerOnGameEnd;
         }
 
         private IEnumerator StartCountdown()
@@ -76,12 +76,6 @@ namespace UbiJam.Gameplay
 
             _gameStopWatch.Restart();
             new OnGameStarted();
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            OnGameEnded.Listeners -= ResetTimerOnGameEnd;
         }
 
         /// <summary>
@@ -103,6 +97,28 @@ namespace UbiJam.Gameplay
                 _gameStopWatch.Stop();
             else
                 _gameStopWatch.Start();
+        }
+
+        public string GetCountdownText
+        {
+            get
+            {
+                switch ((int)GameTimeSeconds)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                        return _gameManager.IsStarted ? "GO GO GO GO" : "Prepare yourself ...";
+                    case 3:
+                        return "3";
+                    case 4:
+                        return "2";
+                    case 5:
+                        return "1";
+                    default:
+                        return "GO GO GO GO";
+                }
+            }
         }
     }
 }
