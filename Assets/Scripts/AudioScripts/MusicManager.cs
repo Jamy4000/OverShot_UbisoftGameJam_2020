@@ -12,6 +12,7 @@ public class MusicManager : MonoSingleton<MusicManager>
     // public float uiMusicTransitionDuration = 1f;
     
     // [Range(0,3)]public int intensity = 0;
+    public bool isInside = true;
     
     // public bool isUIMusic = false;
    
@@ -29,7 +30,9 @@ public class MusicManager : MonoSingleton<MusicManager>
     
     protected override void Awake()
     {
-        base.Awake();
+		base.Awake();
+        vol = new float[2];
+
         DontDestroyOnLoad(this.gameObject); Destroy(this.gameObject);
     }
 
@@ -39,11 +42,10 @@ public class MusicManager : MonoSingleton<MusicManager>
         MasterVolume("m", musicVolume);
     }
 
-    // public void Transition(int musicIntensity)
-    // {
-    //     intensity = musicIntensity;
-    //     isUIMusic = false;
-    // }
+    public void Transition(bool goingInside)
+    {
+        isInside = goingInside;
+    }
 
     // public void TransitionToDominantSong()
     // {
