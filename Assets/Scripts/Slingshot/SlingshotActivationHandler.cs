@@ -1,5 +1,7 @@
 ﻿using UbiJam.Events;
+using UbiJam.GrabbableObjects;
 using UbiJam.Inputs;
+using UbiJam.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +10,7 @@ namespace UbiJam.Slingshot
     public class SlingshotActivationHandler : MonoBehaviour
     {
         private bool _isInSlingshot;
+        public bool CanLeave = true;
 
         private void Start()
         {
@@ -17,7 +20,7 @@ namespace UbiJam.Slingshot
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!_isInSlingshot && other.CompareTag(Utils.TagsHolder.PlayerTag))
+            if (!_isInSlingshot && ObjectGrabber.Instance.CurrentlyGrabbedObject != EGrabbableObjects.None && other.CompareTag(Utils.TagsHolder.PlayerTag))
             {
                 _isInSlingshot = true;
                 new OnUserSwitchedController(true);
@@ -31,7 +34,8 @@ namespace UbiJam.Slingshot
 
         private void QuitSlingshotMode(InputAction.CallbackContext _)
         {
-            new OnUserSwitchedController(false);
+            if (CanLeave)
+                new OnUserSwitchedController(false);
         }
     }
 }

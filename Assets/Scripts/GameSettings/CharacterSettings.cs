@@ -7,6 +7,7 @@ namespace UbiJam
     {
         public float PlayerWalkSpeed = 5.0f;
         public float PlayerRunSpeed = 7.0f;
+        public float MaxGrabDistance = 3.0f;
 
         [SerializeField]
         private float _cameraSwitchSpeed = 5.0f;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UbiJam.Events;
 using UbiJam.GrabbableObjects;
 using UbiJam.Inputs;
@@ -39,6 +38,7 @@ namespace UbiJam.Player
             inputManager.SlingshotInputs.OnPauseAction.started += DisableSystem;
             inputManager.CharacterInputs.OnPauseAction.started += DisableSystem;
 
+            inputManager.SlingshotInputs.FireAction.started += ReleaseSlingshot;
             inputManager.CharacterInputs.InteractAction.started += ReleaseOrGrab;
         }
 
@@ -70,7 +70,7 @@ namespace UbiJam.Player
                     continue;
 
                 calculatedDistance = Vector3.Distance(_sceneObjects[i].SceneGO.transform.position, currentPos);
-                if (calculatedDistance < _settings.MaxGrabDistance && calculatedDistance < bestDistance)
+                if (calculatedDistance < _settings.CharacterSettings.MaxGrabDistance && calculatedDistance < bestDistance)
                 {
                     bestDistance = calculatedDistance;
                     bestDistanceGrabbable = _sceneObjects[i];
@@ -146,6 +146,11 @@ namespace UbiJam.Player
         private void DisableSystem(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
             enabled = false;
+        }
+
+        private void ReleaseSlingshot(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            CurrentlyGrabbedObject = EGrabbableObjects.None;
         }
     }
 }
