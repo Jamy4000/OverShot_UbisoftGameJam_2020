@@ -8,10 +8,11 @@ public class MusicManager : MonoBehaviour
     [Range(0,2)]public static float musicVolume = 1f;
     [Range(0,2)]public static float sfxVolume = 1f;
     public static MusicManager instance = null;
-    // public float transitionDuration = 2f;
-    // public float uiMusicTransitionDuration = 1f;
+    public float transitionDuration = 2f;
+    //public float uiMusicTransitionDuration = 1f;
     
     // [Range(0,3)]public int intensity = 0;
+    public bool isInside = true;
     
     // public bool isUIMusic = false;
    
@@ -39,7 +40,7 @@ public class MusicManager : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        // vol = new float[4];
+        vol = new float[2];
     }
 
     void Start()
@@ -48,11 +49,10 @@ public class MusicManager : MonoBehaviour
         MasterVolume("m", musicVolume);
     }
 
-    // public void Transition(int musicIntensity)
-    // {
-    //     intensity = musicIntensity;
-    //     isUIMusic = false;
-    // }
+    public void Transition(bool goingInside)
+    {
+        isInside = goingInside;
+    }
 
     // public void TransitionToDominantSong()
     // {

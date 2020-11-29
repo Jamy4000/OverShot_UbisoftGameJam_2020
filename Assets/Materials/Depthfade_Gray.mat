@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
-    - Vector1_D870C802: 1.65
+    - Vector1_D870C802: 0.52
     m_Colors:
     - Color_3FEBB0AB: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
   m_BuildTextureStacks: []
