@@ -12,6 +12,7 @@ namespace UbiJam.Slingshot
         private Transform _startPoint;
 
         private LineRenderer _renderer;
+        private Slingshot _slingshot;
 
         private void Awake()
         {
@@ -24,8 +25,14 @@ namespace UbiJam.Slingshot
 
         private void Update()
         {
-            _renderer.SetPosition(0, _startPoint.position);
-            _renderer.SetPosition(1, _target.position);
+            Vector3 direction = _slingshot.GetThrowForce();
+            Vector3 previousPoint = _startPoint.position;
+            _renderer.SetPosition(0, previousPoint);
+
+            for (int i = 0; i < _renderer.positionCount; i++)
+            {
+
+            }
         }
 
         private void OnDestroy()

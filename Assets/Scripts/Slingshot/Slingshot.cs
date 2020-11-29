@@ -92,7 +92,7 @@ namespace UbiJam.Slingshot
             _activationHandler.CanLeave = true;
         }
 
-        private Vector3 GetThrowForce()
+        public Vector3 GetThrowForce()
         {
             float distanceFromThrowingPoint = Vector3.Distance(_throwingPoint.position, _playerCamera.position);
             distanceFromThrowingPoint /= _slingshotSettings.MaxBackwardDistance;
