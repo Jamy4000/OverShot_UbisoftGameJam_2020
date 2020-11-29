@@ -129,7 +129,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7926
+  m_Name: pb_Mesh-14054
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -140,8 +140,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 24
     localAABB:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+      m_Center: {x: 3.5, y: 0.05, z: -3}
+      m_Extent: {x: 3.5, y: 0.05, z: 3}
   m_Shapes:
     vertices: []
     shapes: []
@@ -293,7 +293,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7928
+  m_Name: pb_Mesh-14056
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -304,8 +304,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 24
     localAABB:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+      m_Center: {x: 1.5, y: 0.05, z: -5}
+      m_Extent: {x: 1.5, y: 0.05, z: 5}
   m_Shapes:
     vertices: []
     shapes: []
@@ -664,7 +664,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-8106
+  m_Name: pb_Mesh-14234
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -675,8 +675,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 24
     localAABB:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+      m_Center: {x: 2, y: 0.05, z: -2}
+      m_Extent: {x: 2, y: 0.05, z: 2}
   m_Shapes:
     vertices: []
     shapes: []
@@ -828,7 +828,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-7930
+  m_Name: pb_Mesh-14058
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -839,8 +839,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 24
     localAABB:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+      m_Center: {x: 4, y: 0.05, z: -3}
+      m_Extent: {x: 4, y: 0.05, z: 3}
   m_Shapes:
     vertices: []
     shapes: []
