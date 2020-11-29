@@ -3968,6 +3968,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7483965468411390707, guid: cfa1daacc3e75534ab30e0534f5b7f3f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfa1daacc3e75534ab30e0534f5b7f3f, type: 3}
 --- !u!43 &1999977589
@@ -3976,7 +3981,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-131824
+  m_Name: pb_Mesh68442
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

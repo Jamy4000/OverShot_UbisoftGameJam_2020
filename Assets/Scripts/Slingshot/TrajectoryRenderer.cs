@@ -32,6 +32,8 @@ namespace UbiJam.Slingshot
 
         private void Update()
         {
+            return;
+
             Vector3 direction = _slingshot.GetThrowForce();
             direction = direction.normalized;
             Vector3 previousPoint = _startPoint.position;
