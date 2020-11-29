@@ -7,6 +7,8 @@ namespace UbiJam.Gameplay
 {
     public class NeighborManager : MonoBehaviour
     {
+        [SerializeField]
+        private GrabbablePool _scenePool;
         private GameObject[] _windows;
         private List<GrabbableReceiver> _currentReceivers = new List<GrabbableReceiver>();
         private GameSettings _settings;
@@ -63,7 +65,8 @@ namespace UbiJam.Gameplay
                     if (!receiver.IsActive)
                     {
                         _currentReceivers.Add(receiver);
-                        receiver.ActivateReceiver((EGrabbableObjects)Random.Range(1, (int)(EGrabbableObjects.COUNT - 1)));
+                        EGrabbableObjects randomObject = (EGrabbableObjects)Random.Range(1, (int)(EGrabbableObjects.COUNT - 1));
+                        receiver.ActivateReceiver(_scenePool.GetGrabbableObjectType(randomObject));
                         break;
                     }
                 }

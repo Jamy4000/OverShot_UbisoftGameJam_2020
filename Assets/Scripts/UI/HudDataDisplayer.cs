@@ -31,7 +31,7 @@ namespace UbiJam.UI
             _gameManager = GameManager.Instance;
             _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
             _countdownText.text = "Prepare yourself...";
-            _endGameGO.SetActive(true);
+            _endGameGO.SetActive(false);
         }
 
         private void Update()

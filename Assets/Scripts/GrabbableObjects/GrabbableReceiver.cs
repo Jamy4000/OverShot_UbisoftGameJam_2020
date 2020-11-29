@@ -7,6 +7,8 @@ namespace UbiJam.GrabbableObjects
     {
         [SerializeField]
         private GameObject _neighborImage;
+        [SerializeField]
+        private UnityEngine.UI.Image _demandedObjectImage;
 
         private EGrabbableObjects DemandedObject;
 
@@ -32,10 +34,11 @@ namespace UbiJam.GrabbableObjects
             // TODO Add point or whatever
         }
 
-        public void ActivateReceiver(EGrabbableObjects requestedItem)
+        public void ActivateReceiver(GrabbableObjectType requestedItem)
         {
             IsActive = true;
-            DemandedObject = requestedItem;
+            DemandedObject = requestedItem.Type;
+            _demandedObjectImage.sprite = requestedItem.ItemSprite;
             _neighborImage.SetActive(true);
         }
     }
