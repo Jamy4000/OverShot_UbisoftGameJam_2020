@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UbiJam.Events;
 using UbiJam.GrabbableObjects;
 using UbiJam.Inputs;
@@ -71,7 +70,7 @@ namespace UbiJam.Player
                     continue;
 
                 calculatedDistance = Vector3.Distance(_sceneObjects[i].SceneGO.transform.position, currentPos);
-                if (calculatedDistance < _settings.MaxGrabDistance && calculatedDistance < bestDistance)
+                if (calculatedDistance < _settings.CharacterSettings.MaxGrabDistance && calculatedDistance < bestDistance)
                 {
                     bestDistance = calculatedDistance;
                     bestDistanceGrabbable = _sceneObjects[i];

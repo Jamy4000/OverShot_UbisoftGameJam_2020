@@ -116,9 +116,14 @@ namespace UbiJam.Slingshot
         {
             float distanceFromThrowingPoint = Vector3.Distance(_throwingPoint.position, _playerCamera.position);
             distanceFromThrowingPoint /= _slingshotSettings.MaxBackwardDistance;
+
             Vector3 direction = _throwingPoint.position - _attachPoint.position;
             direction *= distanceFromThrowingPoint;
+
             direction += Physics.gravity * _slingshotSettings.GravityMultiplier * (1 - distanceFromThrowingPoint);
+
+            direction.y += distanceFromThrowingPoint;
+
             return direction * _slingshotSettings.ThrowForce;
         }
     }
