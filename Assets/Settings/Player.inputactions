@@ -207,7 +207,7 @@
                 {
                     "name": "",
                     "id": "0fed9326-e2a9-45fb-99cf-206903b5474a",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -779,18 +779,18 @@
                     "interactions": ""
                 },
                 {
-                    "name": "UpSlingshot",
-                    "type": "Button",
+                    "name": "UpTarget",
+                    "type": "Value",
                     "id": "9c237d42-2288-4e64-a276-c65c77aa7cda",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "DownSlingshot",
-                    "type": "Button",
+                    "name": "DownTarget",
+                    "type": "Value",
                     "id": "52915d25-f26e-4d6f-bbe3-11eeb686d7d9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -997,7 +997,7 @@
                 {
                     "name": "",
                     "id": "be9fb1bb-3568-40e9-9325-fb99606bce81",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -1044,8 +1044,8 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "UpSlingshot",
+                    "groups": "Keyboard&Mouse",
+                    "action": "UpTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1055,8 +1055,8 @@
                     "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "UpSlingshot",
+                    "groups": "Gamepad",
+                    "action": "UpTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1066,8 +1066,8 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "DownSlingshot",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DownTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1077,8 +1077,8 @@
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "DownSlingshot",
+                    "groups": "Gamepad",
+                    "action": "DownTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

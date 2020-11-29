@@ -11,8 +11,6 @@ namespace UbiJam.Slingshot
     public class Slingshot : MonoSingleton<Slingshot>
     {
         [SerializeField]
-        private Transform _attachPoint;
-        [SerializeField]
         private StretchToPoint[] _stretchers;
         [SerializeField]
         private SlingshotActivationHandler _activationHandler;
@@ -23,8 +21,6 @@ namespace UbiJam.Slingshot
 
         public GameObject ObjectInSlingshot { get; private set; }
         private Transform _playerCamera;
-        private bool _isActive;
-        private Vector3 _attachPointBasePos;
         SlingshotSettings _slingshotSettings;
 
         protected override void Awake()
@@ -33,15 +29,6 @@ namespace UbiJam.Slingshot
             OnSlingshotReady.Listeners += ActivateSlingshot;
             OnCharacterReady.Listeners += DeactivateSlingshot;
             _playerCamera = Camera.main.transform;
-            _attachPointBasePos = _attachPoint.localPosition;
-        }
-
-        private void Update()
-        {
-            if (_isActive)
-            {
-                _attachPoint.position = _playerCamera.position + _slingshotSettings.ForwardOffsetAttachPoint;
-            }
         }
 
         private void Start()
@@ -66,20 +53,17 @@ namespace UbiJam.Slingshot
                 {
                     ObjectInSlingshot = _slingshotPool.GrabbableObjectReferences[i].SceneGO;
                     ObjectInSlingshot.SetActive(true);
-                    _isActive = true;
                 }
             }
         }
 
         private void DeactivateSlingshot(OnCharacterReady info)
         {
-            _isActive = false;
             ObjectInSlingshot.SetActive(false);
         }
 
         private void RemoveGrabbable(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            _isActive = false;
             //TODO Do anim for _attachPoint
             ObjectInSlingshot.SetActive(false);
         }
@@ -94,10 +78,6 @@ namespace UbiJam.Slingshot
             {
                 stretcher.ResetPostion();
             }
-            
-            _attachPoint.localPosition = _attachPointBasePos;
-            _isActive = false;
-
 
             StartCoroutine(LeaveSlingshot());
             //TODO Do anim for _attachPoint
@@ -117,10 +97,8 @@ namespace UbiJam.Slingshot
             float distanceFromThrowingPoint = Vector3.Distance(_throwingPoint.position, _playerCamera.position);
             distanceFromThrowingPoint /= _slingshotSettings.MaxBackwardDistance;
 
-            Vector3 direction = _throwingPoint.position - _attachPoint.position;
+            Vector3 direction = _throwingPoint.position - ObjectInSlingshot.transform.position;
             direction *= distanceFromThrowingPoint;
-
-            direction += Physics.gravity * _slingshotSettings.GravityMultiplier * (1 - distanceFromThrowingPoint);
 
             return direction * _slingshotSettings.ThrowForce;
         }
