@@ -15,6 +15,8 @@ namespace UbiJam.Player
         private SlingshotMover _slingshotMover;
         private CharacterMover _characterMover;
 
+        public EPlayerMoveState CurrentMoveState { get; private set; }
+
         private bool _canInteract = true;
 
         protected void Start()
@@ -38,6 +40,7 @@ namespace UbiJam.Player
                 return;
 
             _currentMover.UpdatePosition();
+            CurrentMoveState = _currentMover == _slingshotMover ? _slingshotMover.CurrentPlayerMoveState : _characterMover.CurrentPlayerMoveState;
         }
 
         protected override void OnDestroy()

@@ -1,4 +1,5 @@
-﻿using UbiJam.Gameplay;
+﻿using UbiJam.Events;
+using UbiJam.Gameplay;
 using UnityEngine;
 
 namespace UbiJam.GrabbableObjects
@@ -26,10 +27,12 @@ namespace UbiJam.GrabbableObjects
                 _neighborImage.SetActive(false);
                 DemandedObject = EGrabbableObjects.None;
                 GameManager.Instance.AddPoint(1);
+                new OnSlingshotHit();
             }
             else
             {
                 Debug.Log("WRONG");
+                new OnSlingshotMiss();
             }
             // TODO Add point or whatever
         }
