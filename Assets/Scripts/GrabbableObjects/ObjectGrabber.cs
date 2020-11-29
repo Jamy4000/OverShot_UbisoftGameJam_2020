@@ -12,11 +12,11 @@ namespace UbiJam.Player
         [SerializeField]
         private GrabbablePool _playerPool;
 
-        private GrabbableObjectType _closestGrabbable = null;
         private Transform _transform;
         private List<GrabbableObjectType> _sceneObjects;
         private GameSettings _settings;
 
+        public GrabbableObjectType ClosestGrabbable { get; private set; }
         public EGrabbableObjects CurrentlyGrabbedObject { get; private set; }
 
         protected override void Awake()
@@ -77,17 +77,17 @@ namespace UbiJam.Player
                 }
             }
 
-            _closestGrabbable = bestDistanceGrabbable;
+            ClosestGrabbable = bestDistanceGrabbable;
         }
 
         private void ReleaseOrGrab(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
             // User can grab
-            if (_closestGrabbable != null && _closestGrabbable.Type != EGrabbableObjects.None && CurrentlyGrabbedObject == EGrabbableObjects.None)
+            if (ClosestGrabbable != null && ClosestGrabbable.Type != EGrabbableObjects.None && CurrentlyGrabbedObject == EGrabbableObjects.None)
             {
-                CurrentlyGrabbedObject = _closestGrabbable.Type;
+                CurrentlyGrabbedObject = ClosestGrabbable.Type;
                 ChangePlayerObjectActivation(true);
-                _closestGrabbable = null;
+                ClosestGrabbable = null;
             }
             // We try to release
             else 

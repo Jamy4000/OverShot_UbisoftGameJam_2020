@@ -45,7 +45,7 @@ namespace UbiJam.Utils
         {
             if (!ReferenceEquals(_instance, null))
             {
-                Destroy(this);
+                Destroy(gameObject);
                 return;
             }
 

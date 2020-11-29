@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UbiJam.Utils;
+﻿using UbiJam.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
 
