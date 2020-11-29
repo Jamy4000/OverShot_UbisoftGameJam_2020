@@ -35,6 +35,15 @@ public class MusicManager : MonoSingleton<MusicManager>
         MasterVolume("m", musicVolume);
     }
 
+    public void UpdateMusicVolume(float newVolume)
+    {
+        MasterVolume("m", newVolume);
+    }
+    public void UpdateSFXVolume(float newVolume)
+    {
+        MasterVolume("s", newVolume);
+    }
+
     public void Transition(int newSongIndex)
     {
         songIndex = newSongIndex;
