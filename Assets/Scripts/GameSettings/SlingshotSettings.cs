@@ -44,5 +44,17 @@ namespace UbiJam
         [SerializeField]
         private float _gravityMultiplier = 0.5f;
         public float GravityMultiplier { get { return _gravityMultiplier; } }
+
+        [SerializeField]
+        private float _targetMoveSpeed = 2.0f;
+        public float TargetMoveSpeed { get { return _targetMoveSpeed; } }
+
+        [SerializeField]
+        private float _maxTargetHeight = 2.0f;
+        public float MaxTargetHeight { get { return _maxTargetHeight; } }
+
+        [SerializeField]
+        private float _minObjectHeight = 0.2f;
+        public float MinObjectHeight { get { return _minObjectHeight; } }
     }
 }

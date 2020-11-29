@@ -3,7 +3,10 @@
     public enum EGrabbableObjects
     {
         None,
-        Sphere,
-        Cube
+        Apple,
+        Book,
+        Cat,
+        Soda_Can,
+        TV_Remote
     }
 }
