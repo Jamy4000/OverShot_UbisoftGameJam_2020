@@ -122,8 +122,6 @@ namespace UbiJam.Slingshot
 
             direction += Physics.gravity * _slingshotSettings.GravityMultiplier * (1 - distanceFromThrowingPoint);
 
-            direction.y += distanceFromThrowingPoint;
-
             return direction * _slingshotSettings.ThrowForce;
         }
     }
