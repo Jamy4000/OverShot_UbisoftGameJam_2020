@@ -7,6 +7,11 @@
         Book,
         Cat,
         Soda_Can,
-        TV_Remote
+        TV_Remote,
+        TP,
+
+
+
+        COUNT
     }
 }
