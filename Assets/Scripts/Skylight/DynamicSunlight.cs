@@ -21,6 +21,7 @@ namespace UbiJam.Lighting
             OnGameEnded.Listeners += EndSystem;
             light = GetComponent<Light>();
             UpdateLight();
+            this.enabled = false;
         }
 
         private void Update()

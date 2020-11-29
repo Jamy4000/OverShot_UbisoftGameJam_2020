@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UbiJam.Events;
 using UbiJam.GrabbableObjects;
 using UnityEngine;
 
@@ -11,11 +12,18 @@ namespace UbiJam.Gameplay
         private GameSettings _settings;
         private float _timeSinceLastSpawn = 0.0f;
 
+        private void Awake()
+        {
+            OnGameStarted.Listeners += StartSystem;
+            OnGameEnded.Listeners += EndSystem;
+        }
+
         private void Start()
         {
             _settings = GameSettings.Instance;
             _windows = GameObject.FindGameObjectsWithTag(Utils.TagsHolder.WindowTag);
-            GenerateNeighbors(3);
+            GenerateNeighbors(_settings.NeighborsOnStart);
+            this.enabled = false;
         }
 
         private void Update()
@@ -26,10 +34,16 @@ namespace UbiJam.Gameplay
             _timeSinceLastSpawn += Time.deltaTime;
             if (_timeSinceLastSpawn > _settings.MinTimeBetweenNeighborSpawn)
             {
-                int random = UnityEngine.Random.Range(0, 1);
-                if (random > 0.9f)
+                int random = Random.Range(0, 100);
+                if (random >= 90)
                     GenerateNeighbors(1);
             }
+        }
+
+        private void OnDestroy()
+        {
+            OnGameStarted.Listeners -= StartSystem;
+            OnGameEnded.Listeners -= EndSystem;
         }
 
         private void GenerateNeighbors(int amount)
@@ -57,6 +71,16 @@ namespace UbiJam.Gameplay
                 if (_currentReceivers.Count == _settings.MaxNeighborAmount)
                     return;
             }
+        }
+
+        private void StartSystem(OnGameStarted info)
+        {
+            this.enabled = true;
+        }
+
+        private void EndSystem(OnGameEnded info)
+        {
+            this.enabled = false;
         }
     }
 }
