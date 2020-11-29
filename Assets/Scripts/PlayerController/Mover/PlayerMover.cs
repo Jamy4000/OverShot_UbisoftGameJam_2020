@@ -9,6 +9,7 @@ namespace UbiJam.Player
 
         protected Rigidbody PlayerRigidbody;
         protected bool IsInteracting;
+        protected SlingshotSettings SlingshotSettings;
         protected CharacterSettings CharacterSettings;
 
         protected Vector3 MovementInputValue
@@ -48,7 +49,7 @@ namespace UbiJam.Player
             switch (CurrentPlayerMoveState) 
             {
                 case EPlayerMoveState.Walking:
-                    return CharacterSettings.PlayerWalkSpeed;
+                    return GetWalkingSpeed();
                 case EPlayerMoveState.Running:
                     return CharacterSettings.PlayerRunSpeed;
                 default:
@@ -56,6 +57,7 @@ namespace UbiJam.Player
             }
         }
 
+        protected abstract float GetWalkingSpeed();
         protected abstract void SetCurrentPlayerMoveState(bool isMoving);
     }
 }

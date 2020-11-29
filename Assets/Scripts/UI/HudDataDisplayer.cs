@@ -2,6 +2,9 @@
 using UbiJam.Gameplay;
 using UbiJam.Events;
 using System.Collections;
+using UbiJam.Player;
+using UbiJam.Inputs;
+using System;
 
 namespace UbiJam.UI
 {
@@ -15,6 +18,7 @@ namespace UbiJam.UI
         [SerializeField] private GameObject _endGameGO;
         [SerializeField] private TMPro.TextMeshProUGUI _finalScoreText;
         [SerializeField] private TMPro.TextMeshProUGUI _pointText;
+        [SerializeField] private GameObject _pauseMenu;
 
         private GameManager _gameManager;
         private GameTimer _gameTimer;
@@ -31,6 +35,12 @@ namespace UbiJam.UI
             _gameManager = GameManager.Instance;
             _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
             _countdownText.text = "Prepare yourself...";
+
+            InputManager.Instance.SlingshotInputs.OnPauseAction.started += UpdatePauseMenu;
+            InputManager.Instance.SlingshotInputs.OnPauseAction.canceled += UpdatePauseMenu;
+            InputManager.Instance.CharacterInputs.OnPauseAction.started += UpdatePauseMenu;
+            InputManager.Instance.CharacterInputs.OnPauseAction.canceled += UpdatePauseMenu;
+
             _endGameGO.SetActive(false);
         }
 
@@ -52,6 +62,11 @@ namespace UbiJam.UI
         {
             OnGameEnded.Listeners -= DestroyUI;
             OnGameStarted.Listeners -= DisableCountdownText;
+        }
+
+        private void UpdatePauseMenu(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+        {
+            _pauseMenu.SetActive(!_pauseMenu.activeSelf);
         }
 
         private void DisplayCountdown()

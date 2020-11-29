@@ -72,6 +72,11 @@ namespace UbiJam.Player
                 CurrentPlayerMoveState = EPlayerMoveState.Walking;
         }
 
+        protected override float GetWalkingSpeed()
+        {
+            return _slingshotSettings.PlayerWalkSpeed;
+        }
+
         /*
          * TODO IF TIME
         private bool IsGoingTowardTheSide(Vector2 newInput)

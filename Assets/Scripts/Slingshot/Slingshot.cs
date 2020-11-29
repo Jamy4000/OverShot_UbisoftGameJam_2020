@@ -18,10 +18,16 @@ namespace UbiJam.Slingshot
         private Transform _throwingPoint;
         [SerializeField]
         private GrabbablePool _slingshotPool;
+        [SerializeField]
+        private LineRenderer _slingshotRenderer;
 
         public GameObject ObjectInSlingshot { get; private set; }
         private Transform _playerCamera;
         SlingshotSettings _slingshotSettings;
+
+        public Vector3[] Points;
+
+        public bool HasThrown;
 
         protected override void Awake()
         {
@@ -29,6 +35,7 @@ namespace UbiJam.Slingshot
             OnSlingshotReady.Listeners += ActivateSlingshot;
             OnCharacterReady.Listeners += DeactivateSlingshot;
             _playerCamera = Camera.main.transform;
+            Points = new Vector3[_slingshotRenderer.positionCount];
         }
 
         private void Start()
@@ -70,9 +77,11 @@ namespace UbiJam.Slingshot
 
         private void ReleaseSlingshot(UnityEngine.InputSystem.InputAction.CallbackContext obj)
         {
-            Rigidbody rigidbodyInSlingshot = ObjectInSlingshot.GetComponent<Rigidbody>();
-            rigidbodyInSlingshot.isKinematic = false;
-            rigidbodyInSlingshot.AddForce(GetThrowForce(), ForceMode.Impulse);
+            //Rigidbody rigidbodyInSlingshot = ObjectInSlingshot.GetComponent<Rigidbody>();
+            //rigidbodyInSlingshot.isKinematic = false;
+            //rigidbodyInSlingshot.AddForce(GetThrowForce(), ForceMode.Impulse);
+            HasThrown = true;
+            ObjectInSlingshot.GetComponent<ThrowableObject>().ThrowThisObject(Points);
 
             foreach (var stretcher in _stretchers)
             {
@@ -87,9 +96,12 @@ namespace UbiJam.Slingshot
         {
             _activationHandler.CanLeave = false;
             yield return new WaitForSeconds(1.0f);
-            ObjectInSlingshot.GetComponent<GrabbableObject>().ResetGrabbable();
             new OnUserSwitchedController(false);
             _activationHandler.CanLeave = true;
+            yield return new WaitForSeconds(3.0f);
+
+            HasThrown = false;
+            ObjectInSlingshot.GetComponent<GrabbableObject>().ResetGrabbable();
         }
 
         public Vector3 GetThrowForce()

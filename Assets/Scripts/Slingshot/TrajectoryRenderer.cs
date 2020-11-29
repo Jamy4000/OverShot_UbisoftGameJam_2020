@@ -25,14 +25,17 @@ namespace UbiJam.Slingshot
             _renderer.enabled = false;
             this.enabled = false;
         }
+
         private void Start()
         {
             _slingshotSettings = GameSettings.Instance.SlingshotSettings;
+            _slingshot = Slingshot.Instance;
         }
 
         private void Update()
         {
-            return;
+            if (_slingshot.HasThrown)
+                return;
 
             Vector3 direction = _slingshot.GetThrowForce();
             direction = direction.normalized;
@@ -40,13 +43,19 @@ namespace UbiJam.Slingshot
 
             Vector3 nextPoint;
 
+            var distance = (_target.position - _startPoint.position).magnitude;
+            var maxDistance = distance / (_slingshotSettings.MaxBackwardDistance - Vector3.Distance(Camera.main.transform.position, _startPoint.position));
+            maxDistance = Mathf.Clamp01(maxDistance);
             _renderer.SetPosition(0, previousPoint);
-            
+            _slingshot.Points[0] = previousPoint;
+
             for (int i = 0; i < _renderer.positionCount; i++)
             {
                 nextPoint = previousPoint + direction * _pointDistance;
-                nextPoint += Physics.gravity * _slingshotSettings.GravityMultiplier;
+                nextPoint += Physics.gravity * _slingshotSettings.GravityMultiplier * (1 - maxDistance) * i;
                 _renderer.SetPosition(i, nextPoint);
+                _slingshot.Points[i] = nextPoint;
+                previousPoint = nextPoint;
             }
         }
 

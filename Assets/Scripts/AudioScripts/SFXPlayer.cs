@@ -29,7 +29,7 @@ namespace UbiJam.SFX
             OnObjectWasGrabbed.Listeners += PlayGrabEffect;
             OnUserSwitchedController.Listeners += PlaySlingShotLoad;
             OnSlingshotHit.Listeners += PlaySlingshotHit;
-            OnSlingshotHit.Listeners += PlaySlingshotMiss;
+            OnSlingshotMiss.Listeners += PlaySlingshotMiss;
             _source = GetComponent<AudioSource>();
         }
 
@@ -60,7 +60,7 @@ namespace UbiJam.SFX
             OnObjectWasGrabbed.Listeners -= PlayGrabEffect;
             OnUserSwitchedController.Listeners -= PlaySlingShotLoad;
             OnSlingshotHit.Listeners -= PlaySlingshotHit;
-            OnSlingshotHit.Listeners -= PlaySlingshotMiss;
+            OnSlingshotMiss.Listeners -= PlaySlingshotMiss;
         }
 
         private void PlayGrabEffect(OnObjectWasGrabbed _)
@@ -84,7 +84,7 @@ namespace UbiJam.SFX
             _source.Play();
         }
 
-        private void PlaySlingshotMiss(OnSlingshotHit info)
+        private void PlaySlingshotMiss(OnSlingshotMiss info)
         {
             _source.clip = _slingshotMissSfx;
             _source.Play();

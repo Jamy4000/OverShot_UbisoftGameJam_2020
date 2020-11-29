@@ -1,4 +1,5 @@
-﻿using UbiJam.GrabbableObjects;
+﻿using UbiJam.Events;
+using UbiJam.GrabbableObjects;
 using UnityEngine;
 
 namespace UbiJam.Slingshot
@@ -25,6 +26,7 @@ namespace UbiJam.Slingshot
             }
             else if (collider.CompareTag(Utils.TagsHolder.WallTag))
             {
+                new OnSlingshotMiss();
                 ResetGrabbable();
             }
         }

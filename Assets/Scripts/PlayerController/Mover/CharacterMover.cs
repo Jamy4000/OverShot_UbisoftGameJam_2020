@@ -44,5 +44,10 @@ namespace UbiJam.Player
             else
                 CurrentPlayerMoveState = EPlayerMoveState.Walking;
         }
+
+        protected override float GetWalkingSpeed()
+        {
+            return CharacterSettings.PlayerWalkSpeed;
+        }
     }
 }

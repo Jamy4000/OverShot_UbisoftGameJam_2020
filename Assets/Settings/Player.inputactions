@@ -152,7 +152,7 @@
                 {
                     "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -782,7 +782,7 @@
                     "name": "UpTarget",
                     "type": "Value",
                     "id": "9c237d42-2288-4e64-a276-c65c77aa7cda",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 },
@@ -790,7 +790,7 @@
                     "name": "DownTarget",
                     "type": "Value",
                     "id": "52915d25-f26e-4d6f-bbe3-11eeb686d7d9",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
                 }
@@ -820,19 +820,8 @@
                 },
                 {
                     "name": "",
-                    "id": "0a90bd4e-6beb-4de8-a75a-15bc1ebe5ef0",
-                    "path": "<Joystick>/{Hatswitch}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "63b8ff20-5d66-4833-80f8-f1b0fd5e4871",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -847,17 +836,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "682f7083-47de-4b2c-975a-d27183815b58",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -985,17 +963,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0ed7fa56-51d3-4dc3-bb5e-885e3e11466a",
-                    "path": "<Joystick>/stick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "be9fb1bb-3568-40e9-9325-fb99606bce81",
                     "path": "<Keyboard>/r",
                     "interactions": "",
@@ -1041,7 +1008,7 @@
                 {
                     "name": "",
                     "id": "64044bf5-d619-4fa9-85ea-8170c161ec41",
-                    "path": "<Keyboard>/q",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -1063,7 +1030,7 @@
                 {
                     "name": "",
                     "id": "9803aa57-fb98-42ec-a754-e174fcbec3e3",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

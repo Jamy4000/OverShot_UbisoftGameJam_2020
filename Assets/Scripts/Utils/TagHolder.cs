@@ -6,5 +6,6 @@
         public static readonly string WindowTag = "Window";
         public static readonly string WallTag = "Wall";
         public static readonly string SpawnPointTag = "SpawnPoint";
+        public static readonly string Grabbable = "Grabbable";
     }
 }

@@ -18,6 +18,7 @@ namespace UbiJam.Gameplay
         {
             OnGameStarted.Listeners += StartSystem;
             OnGameEnded.Listeners += EndSystem;
+            OnSlingshotHit.Listeners += RemoveNeighbor;
         }
 
         private void Start()
@@ -46,6 +47,12 @@ namespace UbiJam.Gameplay
         {
             OnGameStarted.Listeners -= StartSystem;
             OnGameEnded.Listeners -= EndSystem;
+            OnSlingshotHit.Listeners -= RemoveNeighbor;
+        }
+
+        private void RemoveNeighbor(OnSlingshotHit info)
+        {
+            _currentReceivers.Remove(info.Receiver);
         }
 
         private void GenerateNeighbors(int amount)

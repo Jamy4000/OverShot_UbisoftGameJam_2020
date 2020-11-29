@@ -5,6 +5,11 @@ namespace UbiJam.UI
 {
     public class InGameButtonHandler : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject _controlPanel;
+        [SerializeField]
+        private GameObject _mainMenu;
+
         public void StartGame()
         {
             SceneManager.LoadScene("Main");
@@ -18,6 +23,18 @@ namespace UbiJam.UI
         public void Quit()
         {
             Application.Quit();
+        }
+
+        public void OpenControlPanel()
+        {
+            _controlPanel.SetActive(true);
+            _mainMenu.SetActive(false);
+        }
+
+        public void CloseControlPanel()
+        {
+            _controlPanel.SetActive(false);
+            _mainMenu.SetActive(true);
         }
     }
 }
