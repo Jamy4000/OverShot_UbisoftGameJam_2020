@@ -8,32 +8,27 @@ public class MusicManager : MonoSingleton<MusicManager>
 {
     [Range(0,2)]public static float musicVolume = 1f;
     [Range(0,2)]public static float sfxVolume = 1f;
-    // public float transitionDuration = 2f;
+    public float transitionDuration = 2f;
     // public float uiMusicTransitionDuration = 1f;
     
     // [Range(0,3)]public int intensity = 0;
-    public bool isInside = true;
+    //songindex: 0=menu, 1=inside, 2=outside
+    [Range(0,2)]public int songIndex = 0;
     
     // public bool isUIMusic = false;
    
     public AudioMixer mixer;
 
+    //store current volumes for each song
     private float[] vol;
 
-    // private float volG = 0f;
-    // private float volUI = 0f;
-
-    // void OnValidate()
-    // {
-    //    Transition(intensity);
-    // }
     
     protected override void Awake()
     {
 		base.Awake();
-        vol = new float[2];
+        vol = new float[3];
 
-        DontDestroyOnLoad(this.gameObject); Destroy(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Start()
@@ -42,28 +37,12 @@ public class MusicManager : MonoSingleton<MusicManager>
         MasterVolume("m", musicVolume);
     }
 
-    public void Transition(bool goingInside)
+    public void Transition(int newSongIndex)
     {
-        isInside = goingInside;
+        songIndex = newSongIndex;
     }
 
-    // public void TransitionToDominantSong()
-    // {
-    //     isUIMusic = false;
-    //     Debug.Log("Gameplay Music...");
-    // }
-    // public void TransitionToUISong()
-    // {
-    //     Debug.Log("UI Music...");
-    //     isUIMusic = true;
-        
-    // }
 
-    // private void MasterMusicVolume(float volume)
-    // {
-    //     mixer.SetFloat("MusicMasterVolume", RemapVolumePercent(volume));
-    //     musicVolume = volume;
-    // }
     public void MasterVolume(string volumeType, float volume)
     {
         switch(volumeType)
@@ -91,28 +70,32 @@ public class MusicManager : MonoSingleton<MusicManager>
         return newValue;
     }
 
-    //void Update()
-    //{
-        // for(int i = 0; i<4; i++)
-        // {
-        //     if(i == intensity)
-        //         vol[i] = Mathf.Clamp(vol[i] + Time.unscaledDeltaTime / transitionDuration, 0f,1f);
-        //     else
-        //         vol[i] = Mathf.Clamp(vol[i] - Time.unscaledDeltaTime / transitionDuration, 0f,1f);
-        //     mixer.SetFloat("M_"+i+"_Vol", RemapVolumePercent(vol[i]));
-        // }
+    void Update()
+    {
+        for(int i = 0; i<vol.Length; i++)
+        {
+           if(i == songIndex)
+                vol[i] = Mathf.Clamp(vol[i] + Time.unscaledDeltaTime / transitionDuration, 0f,1f);
+            else
+                vol[i] = Mathf.Clamp(vol[i] - Time.unscaledDeltaTime / transitionDuration, 0f,1f);
+            //mixer.SetFloat("M_"+i+"_Vol", RemapVolumePercent(vol[i]));
+            switch(i)
+            {
+                case 0:
+                    mixer.SetFloat("m_menu", RemapVolumePercent(vol[i]));
+                    break;
 
-        // if(isUIMusic)
-        // {
-        //     volG = Mathf.Clamp(volG - Time.unscaledDeltaTime / uiMusicTransitionDuration,0f,1f);
-        //     volUI = Mathf.Clamp(volUI + Time.unscaledDeltaTime / uiMusicTransitionDuration,0f,1f);
-        // }
-        // else
-        // {
-        //     volG = Mathf.Clamp(volG + Time.unscaledDeltaTime / uiMusicTransitionDuration,0f,1f);
-        //     volUI = Mathf.Clamp(volUI - Time.unscaledDeltaTime / uiMusicTransitionDuration,0f,1f);
-        // }
-        // mixer.SetFloat("G_MusicVolume", RemapVolumePercent(volG));
-        // mixer.SetFloat("UI_MusicVolume", RemapVolumePercent(volUI));
-    //}
+                case 1:
+                    mixer.SetFloat("m_inside", RemapVolumePercent(vol[i]));
+                    break;
+                
+                case 2:
+                    mixer.SetFloat("m_outside", RemapVolumePercent(vol[i]));
+                    break;
+
+                default:
+                    break;
+            }
+         }
+    }
 }
