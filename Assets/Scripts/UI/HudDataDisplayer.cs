@@ -10,19 +10,11 @@ namespace UbiJam.UI
     /// </summary>
     public class HudDataDisplayer : MonoBehaviour
     {
-        [Header("Timer Texts")]
-        /// <summary>
-        /// Simple reference to the countdown text at the start of the game
-        /// </summary>
         [SerializeField] private TMPro.TextMeshProUGUI _countdownText;
-        /// <summary>
-        /// Simple reference to the time text at the start of the game
-        /// </summary>
         [SerializeField] private TMPro.TextMeshProUGUI _timerText;
-        /// <summary>
-        /// Simple reference to the time text at the start of the game
-        /// </summary>
-        [SerializeField] private TMPro.TextMeshProUGUI _gameEndedText;
+        [SerializeField] private GameObject _endGameGO;
+        [SerializeField] private TMPro.TextMeshProUGUI _finalScoreText;
+        [SerializeField] private TMPro.TextMeshProUGUI _pointText;
 
         private GameManager _gameManager;
         private GameTimer _gameTimer;
@@ -39,7 +31,7 @@ namespace UbiJam.UI
             _gameManager = GameManager.Instance;
             _timerText.text = "Time Remaining: " + GameSettings.Instance.GameTime.ToString("N1") + " sec.";
             _countdownText.text = "Prepare yourself...";
-            _gameEndedText.enabled = false;
+            _endGameGO.SetActive(true);
         }
 
         private void Update()
@@ -52,6 +44,7 @@ namespace UbiJam.UI
             {
                 // Update game timer
                 _timerText.text = "Time Remaining: " + _gameTimer.RemainingGameTimeSeconds.ToString("N1") + " sec.";
+                _pointText.text = "Neighbors saved: " + _gameManager.CurrentScore;
             }
         }
 
@@ -84,7 +77,8 @@ namespace UbiJam.UI
         private void DestroyUI(OnGameEnded _)
         {
             this.enabled = false;
-            _gameEndedText.enabled = true;
+            _finalScoreText.text = _pointText.text;
+            _endGameGO.SetActive(true);
         }
     }
 }

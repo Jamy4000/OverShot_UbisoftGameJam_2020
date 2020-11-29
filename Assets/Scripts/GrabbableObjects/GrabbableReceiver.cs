@@ -24,7 +24,6 @@ namespace UbiJam.GrabbableObjects
                 _neighborImage.SetActive(false);
                 DemandedObject = EGrabbableObjects.None;
                 GameManager.Instance.AddPoint(1);
-                Debug.Log("YOU GOT POINTS");
             }
             else
             {
