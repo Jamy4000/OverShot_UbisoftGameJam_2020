@@ -8,5 +8,7 @@ namespace UbiJam
         public SlingshotSettings SlingshotSettings;
         public float GameTime = 60.0f;
         public bool UseCountdown = true;
+        public int MaxNeighborAmount = 5;
+        public float MinTimeBetweenNeighborSpawn = 6.0f;
     }
 }
