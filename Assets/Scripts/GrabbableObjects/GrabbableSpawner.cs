@@ -11,12 +11,10 @@ namespace UbiJam.Player
         private GrabbablePool _flatPool;
         public GrabbablePool Pool { get { return _flatPool; } }
 
-        [SerializeField]
-        private Transform[] _potentialSpawnPoints;
-
         protected override void Awake()
         {
             base.Awake();
+            GameObject[] potentialSpawnPoints = GameObject.FindGameObjectsWithTag(TagsHolder.SpawnPointTag);
 
             List<int> randomIndexes = new List<int>(_flatPool.GrabbableObjectReferences.Count);
             int newIndex;
@@ -25,7 +23,7 @@ namespace UbiJam.Player
             {
                 while (true)
                 {
-                    newIndex = Random.Range(0, _potentialSpawnPoints.Length - 1);
+                    newIndex = Random.Range(0, potentialSpawnPoints.Length - 1);
                     if (!randomIndexes.Contains(newIndex))
                     {
                         randomIndexes.Add(newIndex);
@@ -36,7 +34,7 @@ namespace UbiJam.Player
 
             for (int i = 0; i < randomIndexes.Count; i++)
             {
-                _flatPool.GrabbableObjectReferences[i].SceneGO.transform.position = _potentialSpawnPoints[randomIndexes[i]].position;
+                _flatPool.GrabbableObjectReferences[i].SceneGO.transform.position = potentialSpawnPoints[randomIndexes[i]].transform.position;
             }
         }
     }
