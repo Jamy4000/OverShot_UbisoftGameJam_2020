@@ -33,9 +33,7 @@ namespace UbiJam.Gameplay
         /// </summary>
         public float GameTimeSeconds { get { return _gameStopWatch.ElapsedMilliseconds / 1000.0f; } }
 
-        public float RemainingGameTime { get { return _gameSettings.GameTime - _gameStopWatch.ElapsedMilliseconds; } }
-
-        public float RemainingGameTimeSeconds { get { return RemainingGameTime / 1000.0f; } }
+        public float RemainingGameTimeSeconds { get { return _gameSettings.GameTime - GameTimeSeconds; } }
 
         private GameSettings _gameSettings;
 
@@ -84,7 +82,7 @@ namespace UbiJam.Gameplay
         private void ResetTimerOnGameEnd(OnGameEnded _)
         {
             _gameStopWatch.Stop();
-            Destroy(this);
+            this.enabled = false;
         }
 
         /// <summary>

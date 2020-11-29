@@ -25,6 +25,10 @@ namespace UbiJam.Gameplay
         /// </summary>
         public bool IsRunning { get { return IsStarted && !IsPaused; } }
 
+        public int CurrentScore { get; private set; } = 0;
+
+        private GameTimer _gameTimer;
+
         protected override void Awake()
         {
             base.Awake();
@@ -34,8 +38,18 @@ namespace UbiJam.Gameplay
 
         private void Start()
         {
+            _gameTimer = GameTimer.Instance;
             InputManager.Instance.SlingshotInputs.OnPauseAction.started += OnPauseInput;
             InputManager.Instance.CharacterInputs.OnPauseAction.started += OnPauseInput;
+        }
+
+        private void Update()
+        {
+            if (_gameTimer.RemainingGameTimeSeconds <= 0.0f)
+            {
+                new OnGameEnded();
+                this.enabled = false;
+            }
         }
 
         protected override void OnDestroy()
@@ -43,6 +57,11 @@ namespace UbiJam.Gameplay
             base.OnDestroy();
             OnGameStarted.Listeners -= StartGame;
             OnGameEnded.Listeners -= StopGame;
+        }
+
+        public void AddPoint(int newPoint)
+        {
+            CurrentScore += newPoint;
         }
 
         private void StartGame(OnGameStarted _)
