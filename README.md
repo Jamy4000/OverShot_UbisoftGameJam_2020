@@ -23,8 +23,8 @@ Only issue is, you're kind of dumb, and you can't remember where you put those i
 Check out the release 1.4 in the release page, this is the best one we did. The 1.3 was the one we presented on the itch.io page though, but the slingshot isn't working properly in there. 
 
 # Screenshots
-[https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot1.png](Screenshot1)
+[Screenshot1](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot1.png)
 
-[https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot2.png](Screenshot2)
+[Screenshot2](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot2.png)
 
-[https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot3.png](Screenshot3)
+[Screenshot3](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot2.png)
