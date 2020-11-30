@@ -1,5 +1,7 @@
-# UbiJam2020
-Repo for the Game Jam organize by Ubisoft, 27-29.11.20
+# Over Shot
+Repository for the Game Jam organized by Ubisoft, 27-29.11.20
+
+![Start Menu](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/StartMenu.png)
 
 # Theme: Essentials
 You're blocked at home because of the pandemic, and your neighbors need some random essential stuffs (TP, TV Remote, the cat, ...). The best way you found to provide them the things they need and keeping the social distancing is to throw those stuffs to them using a big ass slingshot.
@@ -27,4 +29,4 @@ Check out the release 1.4 in the release page, this is the best one we did. The 
 
 ![Screenshot2](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot2.png)
 
-![Screenshot3](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot2.png)
+![Screenshot3](https://github.com/Jamy4000/UbiJam2020/blob/main/Screenshots/Screenshot3.png)
